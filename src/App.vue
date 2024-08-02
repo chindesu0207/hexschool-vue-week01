@@ -86,7 +86,7 @@ const prepareEdit = (product) => {
 
 const confirmEdit = (product) => {
   const index = menuData.value.findIndex((item) => item.id === product.id)
-  menuData.value[index]= tempEdit.value
+  menuData.value[index] = tempEdit.value
   tempEdit.value = {}
 }
 
@@ -95,39 +95,43 @@ const cancelEdit = () => {
 }
 </script>
 <template>
-  <table>
+  <h1 class="text-center my-5">Vue Homework Week01</h1>
+  <div class="col-10 mx-auto">
+  <table class="table">
     <thead>
       <tr>
-        <th scope="col">品項</th>
-        <th scope="col">描述</th>
-        <th scope="col">價格</th>
-        <th scope="col">庫存</th>
+        <th scope="col" class="text-center col-3">品項</th>
+        <th scope="col" class="text-center col-3">描述</th>
+        <th scope="col" class="text-center col-2">價格</th>
+        <th scope="col" class="text-center col-2">庫存</th>
+        <th scope="col" class="text-center col-2">操作</th>
       </tr>
     </thead>
     <tbody v-for="product in menuData" :key="product.id">
       <tr v-if="tempEdit.id === product.id">
-        <td><input type="text" v-model="tempEdit.title" /></td>
-        <td><input type="text" v-model="tempEdit.desc" /></td>
-        <td>{{ product.price }}</td>
-        <td>
-          <button @click="reduceCount(product)">-</button>{{ product.count
-          }}<button @click="addCount(product)">+</button>
+        <td><input type="text" v-model="tempEdit.title" class="form-control" /></td>
+        <td><input type="text" v-model="tempEdit.desc" class="form-control" /></td>
+        <td><input type="number" v-model="tempEdit.price" class="form-control text-center" /></td>
+        <td class="d-flex justify-content-between align-items-center">
+          <input type="number" v-model="tempEdit.count" class="form-control text-center" />
         </td>
-        <td><button type="button" @click="confirmEdit(product)">修改</button></td>
-        <td><button type="button" @click="cancelEdit">取消</button></td>
+        <td class="text-center"><button type="button" @click="confirmEdit(product)" class="btn btn-primary me-3">修改</button>
+        <button type="button" @click="cancelEdit" class="btn btn-outline-primary">取消</button></td>
       </tr>
       <tr v-else>
-        <td>{{ product.title }}</td>
-        <td>
+        <td class="align-middle">{{ product.title }}</td>
+        <td class="align-middle">
           <small>{{ product.desc }}</small>
         </td>
-        <td>{{ product.price }}</td>
-        <td>
-          <button @click="reduceCount(product)">-</button>{{ product.count
-          }}<button @click="addCount(product)">+</button>
+        <td class="text-center align-middle">{{ product.price }}</td>
+        <td class="d-flex justify-content-between align-items-center">
+          <button @click="reduceCount(product)" class="btn btn-outline-secondary">-</button>
+          {{ product.count}}
+          <button @click="addCount(product)" class="btn btn-outline-secondary">+</button>
         </td>
-        <td><button type="button" @click="prepareEdit(product)">編輯</button></td>
+        <td class="text-center"><button type="button" @click="prepareEdit(product)" class="btn btn-primary">編輯</button></td>
       </tr>
     </tbody>
   </table>
+  </div>
 </template>
